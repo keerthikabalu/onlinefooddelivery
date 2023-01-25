@@ -1,0 +1,46 @@
+<div
+  *ngIf="(user | json) != '{}' || user.nameOnCard || user.address || user.cardNumber || user.email || user.cvv; else loggedOut">
+
+  <div class="columns" *ngIf="hideDiv">
+    <div id="cart-imgs" *ngIf="!paid">
+      <div>
+        <a><center> <img class="img-thumbnail" 
+         src="assets/card.jpg"></center>
+        </a>
+      </div>
+    
+    </div>
+    <h2 class="text-center" *ngIf="!paid" role="alert" class="alert alert-primary" ><center>Amount to pay </center></h2>
+    <ul *ngIf="!paid" id="bill">
+      <li *ngFor="let order of orders.productOrders">
+        {{ order.product.name }} - ₹{{ order.product.price }} x {{ order.quantity}} pcs.
+      </li>
+    </ul>
+    <p role="alert" class="alert alert-danger" *ngIf="!paid">Total amount: ₹{{ total }}</p>
+    <button class="btn btn-primary btn-block" (click)="pay()" *ngIf="!paid">Pay</button>
+  </div>
+
+  <div *ngIf="paid">
+    <div class="columns">
+      <ul class="price">
+        <li class="header" role="alert" class="alert alert-success" style="margin-bottom: 1px" style="color: #03bdf5" >
+          <center><strong>Congratulation!</strong></center>
+        </li>
+          <li> You successfully made the order.</li>
+      
+        <li class="grey" style="color: #2b0ee9">Total amount:₹{{ total }} With delivery charge</li>
+        <li> {{newDate | date: 'yyyy-MM-dd hh:mm' }} </li>
+        <li class="grey" style="cursor: pointer; color: rgb(20, 16, 233)"><a (click)="goToHome()" class="button">Order has completed</a></li>
+      </ul>
+    </div>
+
+  
+  </div>
+
+</div>
+<ng-template #loggedOut>
+  <div class="alert alert-warning" style="margin-top: 15px;" *ngIf="hideUpdateMessage">
+    <strong>You must update your profile!</strong> To complete your ordering.
+    <button class="btn btn-success" (click)="goToUpdateProfile(user.id)">Update</button>
+  </div>
+</ng-template>

@@ -1,0 +1,104 @@
+<style>
+  body {
+    font-family: Verdana;
+    font-size: 20px;
+  }
+
+  .spacer {
+     flex: 1;
+    color: rgb(17, 17, 17);
+    font-size: 25px;
+      font-weight: 600;
+      height: 60px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+      
+  }
+
+  a {
+    margin-right: 20px;
+    color: rgba(15, 14, 14, 0.986);
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #08c757ce;
+    color: rgb(17, 17, 17);
+    font-weight: 600;
+      font-size: 25px;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover {
+    opacity: 0.8;
+  }
+
+  .fa-cookie {
+    font-size: 50px;
+    margin: 10px;
+  }
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #08c757ce;
+    color: rgb(19, 3, 3);
+    text-align: center;
+  }
+</style>
+
+<div class="toolbar" role="banner" >
+ <i class="fas fa-cookie"></i>
+  <span [routerLink]="['/dashboard']">K's Food  </span>
+  <SUB><H5>TRUSTED FOOD DELIVERY</H5></SUB>
+
+
+  <div class="spacer"></div>
+  <button mat-button [matMenuTriggerFor]="menu">Style <i class="fas fa-caret-down"></i></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let cat of categories"
+      [routerLink]="['/dsiplay-category/', cat.id]">{{cat.name}}</button>
+  </mat-menu>
+  <a type="button" [routerLink]="['/about']">
+   about <i class="fas fa-fire"></i>
+  </a>
+  <a type="button" [routerLink]="['/contact']">
+    contact <i class="fas fa-phone-volume"></i>
+   </a>
+   
+  
+  <a type="button" [routerLink]="['/dashboard']">
+    Home <i class="fas fa-home"></i>
+  </a>
+  <a type="button" *ngIf="user" [routerLink]="['/profile/', user.id]">
+   Account <i class="fas fa-user"></i>
+  </a>
+  <a type="button" (click)="login()" *ngIf="!user">
+    login
+  </a>
+</div><br>
+
+  
+  <div class="footer">
+    <p>copyright@2022</p>
+  </div>
+
+<router-outlet></router-outlet>
